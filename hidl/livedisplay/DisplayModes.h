@@ -27,13 +27,13 @@ namespace livedisplay {
 namespace V2_0 {
 namespace implementation {
 
+using ::android::sp;
 using ::android::hardware::hidl_array;
 using ::android::hardware::hidl_memory;
 using ::android::hardware::hidl_string;
 using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
-using ::android::sp;
 
 class DisplayModes : public IDisplayModes {
   public:
@@ -50,7 +50,8 @@ class DisplayModes : public IDisplayModes {
     void initialize();
 
     static const std::map<int32_t, std::string> kModeMap;
-    static const std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> kDataMap;
+    static const std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>
+        kDataMap;
     int32_t mCurrentModeId;
     int32_t mDefaultModeId;
 };

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+#include "AdaptiveBacklight.h"
+
 #include <android-base/file.h>
 #include <android-base/strings.h>
 
 #include <fstream>
-
-#include "AdaptiveBacklight.h"
 
 using android::base::ReadFileToString;
 using android::base::Trim;
@@ -31,7 +31,7 @@ namespace livedisplay {
 namespace V2_0 {
 namespace implementation {
 
-static constexpr const char* kCABCPath = "/sys/class/panel/panel/cabc_mode";
+static constexpr const char *kCABCPath = "/sys/class/panel/panel/cabc_mode";
 
 Return<bool> AdaptiveBacklight::isEnabled() {
     std::string tmp;

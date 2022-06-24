@@ -22,6 +22,7 @@
 #include <android-base/logging.h>
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
+
 #include <fstream>
 
 using ::android::base::ReadFileToString;
@@ -35,7 +36,7 @@ namespace livedisplay {
 namespace V2_0 {
 namespace implementation {
 
-static constexpr const char* kDefaultPath = "/data/vendor/display/.displaymodedefault";
+static constexpr const char *kDefaultPath = "/data/vendor/display/.displaymodedefault";
 
 #define COLOR_MODE_SYSFS_PATH "/sys/class/dqe/dqe/aosp_colors"
 #define PANEL_SUPPLIER_SYSFS_PATH "/sys/class/panel/panel/panel_supplier"
@@ -116,13 +117,13 @@ const std::map<std::string, std::map<std::string, std::map<std::string, std::str
  * Write value to path and close file.
  */
 template <typename T>
-static void set(const std::string& path, const T& value) {
+static void set(const std::string &path, const T &value) {
     std::ofstream file(path);
     file << value << std::endl;
 }
 
 template <typename T>
-static T get(const std::string& path, const T& def) {
+static T get(const std::string &path, const T &def) {
     std::ifstream file(path);
     T result;
 
@@ -141,7 +142,7 @@ DisplayModes::DisplayModes() : mCurrentModeId(0), mDefaultModeId(0) {
         return;
     }
 
-    for (const auto& entry : kModeMap) {
+    for (const auto &entry : kModeMap) {
         if (value == entry.first) {
             mDefaultModeId = entry.first;
             break;
@@ -155,8 +156,9 @@ DisplayModes::DisplayModes() : mCurrentModeId(0), mDefaultModeId(0) {
 Return<void> DisplayModes::getDisplayModes(getDisplayModes_cb resultCb) {
     std::vector<DisplayMode> modes;
 
-    for (const auto& entry : kModeMap) {
-        if (entry.first < 3) modes.push_back({entry.first, entry.second});
+    for (const auto &entry : kModeMap) {
+        if (entry.first < 3)
+            modes.push_back({entry.first, entry.second});
     }
 
     resultCb(modes);
@@ -207,17 +209,20 @@ void DisplayModes::initialize() {
     if (panel.empty())
         return;
 
-    for (const auto& entry : kDataMap) {
+    for (const auto &entry : kDataMap) {
         if (!panel.compare(std::string(entry.first))) {
-            auto data =  entry.second;
+            auto data = entry.second;
             auto mode1 = data["mode1"];
-            set(TUNE_MODE1_SYSFS_PATH, StringPrintf("%s,%s,%s,", mode1["cgc"].c_str(), mode1["gamma"].c_str(), mode1["hsc"].c_str()));
+            set(TUNE_MODE1_SYSFS_PATH, StringPrintf("%s,%s,%s,", mode1["cgc"].c_str(),
+                                                    mode1["gamma"].c_str(), mode1["hsc"].c_str()));
 
             auto mode2 = data["mode2"];
-            set(TUNE_MODE2_SYSFS_PATH, StringPrintf("%s,%s,%s,", mode2["cgc"].c_str(), mode2["gamma"].c_str(), mode2["hsc"].c_str()));
+            set(TUNE_MODE2_SYSFS_PATH, StringPrintf("%s,%s,%s,", mode2["cgc"].c_str(),
+                                                    mode2["gamma"].c_str(), mode2["hsc"].c_str()));
 
             auto onoff = data["onoff"];
-            set(TUNE_ONOFF_SYSFS_PATH, StringPrintf("%s,%s,%s,", onoff["cgc"].c_str(), onoff["gamma"].c_str(), onoff["hsc"].c_str()));
+            set(TUNE_ONOFF_SYSFS_PATH, StringPrintf("%s,%s,%s,", onoff["cgc"].c_str(),
+                                                    onoff["gamma"].c_str(), onoff["hsc"].c_str()));
             break;
         }
     }

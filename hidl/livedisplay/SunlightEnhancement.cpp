@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+#include "SunlightEnhancement.h"
+
 #include <android-base/file.h>
 #include <android-base/strings.h>
 
 #include <fstream>
-
-#include "SunlightEnhancement.h"
 
 using android::base::ReadFileToString;
 using android::base::Trim;
@@ -31,7 +31,7 @@ namespace livedisplay {
 namespace V2_0 {
 namespace implementation {
 
-static constexpr const char* kHBMPath = "/sys/class/backlight/hbm/hbm_mode";
+static constexpr const char *kHBMPath = "/sys/class/backlight/hbm/hbm_mode";
 
 Return<bool> SunlightEnhancement::isEnabled() {
     std::string tmp;

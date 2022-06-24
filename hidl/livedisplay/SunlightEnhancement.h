@@ -27,13 +27,13 @@ namespace livedisplay {
 namespace V2_0 {
 namespace implementation {
 
+using ::android::sp;
 using ::android::hardware::hidl_array;
 using ::android::hardware::hidl_memory;
 using ::android::hardware::hidl_string;
 using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
-using ::android::sp;
 
 class SunlightEnhancement : public ISunlightEnhancement {
   public:

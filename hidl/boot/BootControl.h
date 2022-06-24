@@ -49,13 +49,13 @@ class BootControl : public IBootControl {
   private:
     std::string mBlkDevice = BCTL_METADATA_PARTITION;
 
-    bool readMetadata(bctl_metadata_t& data);
-    bool writeMetadata(bctl_metadata_t& data);
-    bool validateMetadata(bctl_metadata_t& data);
+    bool readMetadata(bctl_metadata_t &data);
+    bool writeMetadata(bctl_metadata_t &data);
+    bool validateMetadata(bctl_metadata_t &data);
     bctl_metadata_t resetMetadata();
 };
 
-extern "C" IBootControl* HIDL_FETCH_IBootControl(const char* name);
+extern "C" IBootControl *HIDL_FETCH_IBootControl(const char *name);
 
 }  // namespace implementation
 }  // namespace V1_0

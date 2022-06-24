@@ -15,24 +15,24 @@
  */
 
 #include <errno.h>
-#include <unistd.h>
 #include <sound/asound.h>
+#include <unistd.h>
 
-extern "C" int get_dai_link(int /*param_1*/,int /*param_2*/) {
-  /*if (param_1 != 0) {
-    __android_log_print(2,"audio_route","requested PCM for %d",param_2);
-  }*/
-  return -1;
+extern "C" int get_dai_link(int /*param_1*/, int /*param_2*/) {
+    /*if (param_1 != 0) {
+      __android_log_print(2,"audio_route","requested PCM for %d",param_2);
+    }*/
+    return -1;
 }
 
 // possibly audio_route_missing_ctl(struct audio_route *ar)
 extern "C" int audio_route_missing_ctl(int *param_1) {
-  if (param_1 == 0) {
-    //__android_log_print(6,"audio_route","invalid audio_route");
-    return 0;
-  }
-  int a = *(int *)(param_1 + 6);
-  return a;
+    if (param_1 == 0) {
+        //__android_log_print(6,"audio_route","invalid audio_route");
+        return 0;
+    }
+    int a = *(int *)(param_1 + 6);
+    return a;
 }
 
 struct mixer {
@@ -53,7 +53,7 @@ struct audio_route {
     struct mixer_path *mixer_path;
 };
 
-extern "C" int * mixer_read_event(struct mixer *mixer, uint param_2) {
+extern "C" int *mixer_read_event(struct mixer *mixer, uint param_2) {
     struct snd_ctl_event *ev = NULL;
     ssize_t count;
 

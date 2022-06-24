@@ -16,14 +16,12 @@
 
 #define LOG_TAG "android.hardware.vibrator@1.0-service.exynos9610"
 
-#include <log/log.h>
+#include "Vibrator.h"
 
 #include <android-base/stringprintf.h>
-
 #include <hardware/hardware.h>
 #include <hardware/vibrator.h>
-
-#include "Vibrator.h"
+#include <log/log.h>
 
 #include <cinttypes>
 #include <cmath>
@@ -40,7 +38,7 @@ namespace implementation {
  * Write value to path and close file.
  */
 template <typename T>
-static void set(const std::string& path, const T& value) {
+static void set(const std::string &path, const T &value) {
     std::ofstream file(path);
     file << value << std::endl;
 }

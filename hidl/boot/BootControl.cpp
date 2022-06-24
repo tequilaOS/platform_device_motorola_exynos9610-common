@@ -24,7 +24,7 @@ namespace boot {
 namespace V1_0 {
 namespace implementation {
 
-bool BootControl::readMetadata(bctl_metadata_t& data) {
+bool BootControl::readMetadata(bctl_metadata_t &data) {
     std::fstream in(mBlkDevice, std::ios::binary | std::ios::in);
 
     if (in.fail()) {
@@ -37,7 +37,7 @@ bool BootControl::readMetadata(bctl_metadata_t& data) {
         return false;
     }
 
-    in.read(reinterpret_cast<char*>(&data), sizeof(bctl_metadata_t));
+    in.read(reinterpret_cast<char *>(&data), sizeof(bctl_metadata_t));
 
     if (!validateMetadata(data)) {
 #if 0
@@ -53,8 +53,9 @@ bool BootControl::readMetadata(bctl_metadata_t& data) {
     return !in.eof() && !in.fail();
 }
 
-bool BootControl::writeMetadata(bctl_metadata_t& data) {
-    if (!validateMetadata(data)) return false;
+bool BootControl::writeMetadata(bctl_metadata_t &data) {
+    if (!validateMetadata(data))
+        return false;
 
     // We use std::ios::in | std::ios::out even though we only write so that
     // we don't truncate or append to the file, but rather overwrite the file
@@ -71,12 +72,12 @@ bool BootControl::writeMetadata(bctl_metadata_t& data) {
         return false;
     }
 
-    out.write(reinterpret_cast<const char*>(&data), sizeof(bctl_metadata_t));
+    out.write(reinterpret_cast<const char *>(&data), sizeof(bctl_metadata_t));
 
     return !out.eof() && !out.fail();
 }
 
-bool BootControl::validateMetadata(bctl_metadata_t& data) {
+bool BootControl::validateMetadata(bctl_metadata_t &data) {
     if (data.slot_info[0].magic != BCTL_METADATA_MAGIC ||
         data.slot_info[1].magic != BCTL_METADATA_MAGIC) {
         return false;
@@ -255,7 +256,7 @@ Return<void> BootControl::getSuffix(uint32_t slot, getSuffix_cb _hidl_cb) {
     return Void();
 }
 
-IBootControl* HIDL_FETCH_IBootControl(const char* /* hal */) {
+IBootControl *HIDL_FETCH_IBootControl(const char * /* hal */) {
     return new BootControl();
 }
 
